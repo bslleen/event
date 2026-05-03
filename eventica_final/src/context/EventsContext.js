@@ -15,7 +15,7 @@ function normalize(e) {
     time:             e.event_time || '',
     registrationLink: e.registration_link || '',
     photos:           e.images?.length
-                        ? e.images.map(img => `http://localhost/eventica/uploades/${img}`)
+                        ? e.images.map(img => img.startsWith('http') ? img : `http://localhost:8000/uploades/${img}`)
                         : [],
     status:           e.status,
     organizerId:      String(e.user_id),
@@ -44,13 +44,13 @@ export function EventsProvider({ children }) {
   useEffect(() => { fetchEvents(); }, [fetchEvents]);
 
   async function createEvent(data) {
-    // نحوّل الـ field names من الـ frontend format إلى الـ backend format
     await apiCreateEvent({
       title:             data.title,
       description:       data.description,
       location:          data.location,
       event_date:        data.date,
       registration_link: data.registrationLink || '',
+      photos:            data.photos || [],
     });
     await fetchEvents();
   }
