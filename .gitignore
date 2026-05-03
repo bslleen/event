@@ -1,0 +1,6 @@
+eventica_final/node_modules/
+eventica_final/build/
+eventica_backend_final/uploades/*
+!eventica_backend_final/uploades/.gitkeep
+*.DS_Store
+*.log
